@@ -20,24 +20,33 @@
             background: rgba(255, 255, 255, 0.9);
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 2s ease-in-out;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 2s ease-in-out, glow 3s ease-in-out infinite;
         }
         h1 {
             font-size: 2.5em;
             color: #e91e63;
             margin-bottom: 20px;
-            animation: bounce 1s infinite alternate;
+            animation: bounce 1s infinite alternate, colorChange 3s ease-in-out infinite;
         }
         p {
             font-size: 1.2em;
             line-height: 1.6;
             margin: 20px 0;
         }
+        .typewriter {
+            min-height: 150px;
+            border-right: 3px solid #e91e63;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            animation: typing 8s steps(150, end) 1s forwards, blink 0.7s infinite;
+            overflow: hidden;
+        }
         .heart {
             font-size: 3em;
             color: #ff4081;
             animation: pulse 1.5s infinite;
+            display: inline-block;
         }
         .image {
             width: 200px;
@@ -46,15 +55,21 @@
             margin: 20px 0;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             object-fit: cover;
+            animation: rotate 20s linear infinite;
         }
         .video-container {
             margin: 20px 0;
             display: flex;
             justify-content: center;
+            animation: slideInUp 1s ease-out;
         }
         .video-container iframe {
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .video-container iframe:hover {
+            transform: scale(1.05);
         }
         .audio-container {
             margin: 20px 0;
@@ -65,6 +80,49 @@
             width: 300px;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        /* Floating Hearts Animation */
+        .floating-hearts {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .heart-float {
+            position: absolute;
+            font-size: 2em;
+            animation: float 8s ease-in infinite;
+            opacity: 0.6;
+        }
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ff4081;
+            animation: confetti-fall 6s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+        /* Keyframes */
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+        @keyframes blink {
+            0%, 49%, 100% {
+                border-right-color: #e91e63;
+            }
+            50%, 99% {
+                border-right-color: transparent;
+            }
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -79,42 +137,115 @@
             50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotateZ(360deg);
+                opacity: 0;
+            }
+        }
+        @keyframes slideInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3); }
+            50% { box-shadow: 0 5px 25px rgba(233, 30, 99, 0.6); }
+        }
+        @keyframes colorChange {
+            0% { color: #e91e63; }
+            50% { color: #ff4081; }
+            100% { color: #e91e63; }
+        }
     </style>
 </head>
 <body>
+    <div class="floating-hearts" id="floatingHearts"></div>
+    
     <div class="container">
         <h1>Happy Birthday, Sayang! 🎉</h1>
         <img src="https://drive.google.com/uc?export=view&id=1t2FEROvDx85Fsso8qj4D0vBT3OEGJTg_" alt="Foto Romantis Kita" class="image" loading="lazy">
-        <p>
-            Selamat ulang tahun, cowokku yang paling ganteng dan paling istimewa di dunia! 
-            Setiap hari bersamamu adalah petualangan yang tak terlupakan, penuh tawa, cinta, dan kebahagiaan. 
-            Kamu adalah cahaya di hidupku, yang membuat segalanya terasa lebih indah. 
-            Semoga tahun ini penuh dengan kesuksesan, kesehatan, dan impian yang tercapai. 
-            Aku mencintaimu lebih dari kata-kata bisa ungkapkan. 
-            Terima kasih sudah menjadi bagian dari hidupku. 
-            <span class="heart">❤️</span>
-        </p>
-        <p>
-            Yuk, rayakan hari spesialmu dengan penuh keceriaan! Aku selalu di sini untukmu. 😘
-        </p>
+        
+        <p class="typewriter" id="typewriter1">Selamat ulang tahun, cowokku yang paling ganteng dan paling istimewa di dunia! Setiap hari bersamamu adalah petualangan yang tak terlupakan, penuh tawa, cinta, dan kebahagiaan. Kamu adalah cahaya di hidupku, yang membuat segalanya terasa lebih indah. Semoga tahun ini penuh dengan kesuksesan, kesehatan, dan impian yang tercapai. Aku mencintaimu lebih dari kata-kata bisa ungkapkan. Terima kasih sudah menjadi bagian dari hidupku. <span class="heart">❤️</span></p>
+        
+        <p class="typewriter" id="typewriter2">Yuk, rayakan hari spesialmu dengan penuh keceriaan! Aku selalu di sini untukmu. 😘</p>
+        
         <div class="video-container">
             <iframe width="300" height="200" src="https://www.youtube.com/embed/mAJa4SF_VVI?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
+        
         <div class="audio-container">
             <audio controls autoplay muted>
                 <source src="https://drive.google.com/uc?export=download&id=1vQTCok8ud73jgcmF8-n_PD7NCkOHqCp4" type="audio/mpeg">
+        
             </audio>
         </div>
-        <script>
-            // Unmute audio setelah user interaction
-            document.addEventListener('click', function() {
-                const audio = document.querySelector('audio');
-                if (audio) {
-                    audio.muted = false;
-                    audio.play().catch(err => console.log('Autoplay diizinkan browser'));
-                }
-            }, { once: true });
-        </script>
     </div>
+
+    <script>
+        // Typewriter Effect
+        function typeWriter(elementId, speed = 50) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            element.textContent = '';
+            let index = 0;
+
+            function type() {
+                if (index < text.length) {
+                    element.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Start typewriter effect
+        setTimeout(() => typeWriter('typewriter1', 30), 2000);
+        setTimeout(() => typeWriter('typewriter2', 30), 11000);
+
+        // Floating Hearts
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart-float';
+            heart.textContent = '❤️';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            heart.style.animationDelay = Math.random() * 0.5 + 's';
+            document.getElementById('floatingHearts').appendChild(heart);
+
+            setTimeout(() => heart.remove(), 10000);
+        }
+
+        // Create hearts every 2 seconds
+        setInterval(createFloatingHeart, 2000);
+
+        // Create initial hearts
+        for (let i = 0; i < 3; i++) {
+            setTimeout(() => createFloatingHeart(), i * 500);
+        }
+
+        // Unmute audio setelah user interaction
+        document.addEventListener('click', function() {
+            const audio = document.querySelector('audio');
+            if (audio) {
+                audio.muted = false;
+                audio.play().catch(err => console.log('Autoplay diizinkan browser'));
+            }
+        }, { once: true });
+    </script>
 </body>
 </html>
