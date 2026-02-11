@@ -81,7 +81,6 @@
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        /* Floating Hearts Animation */
         .floating-hearts {
             position: fixed;
             width: 100%;
@@ -97,22 +96,13 @@
             animation: float 8s ease-in infinite;
             opacity: 0.6;
         }
-        /* Keyframes */
         @keyframes typing {
-            from {
-                width: 0;
-            }
-            to {
-                width: 100%;
-            }
+            from { width: 0; }
+            to { width: 100%; }
         }
         @keyframes blink {
-            0%, 49%, 100% {
-                border-right-color: #e91e63;
-            }
-            50%, 99% {
-                border-right-color: transparent;
-            }
+            0%, 49%, 100% { border-right-color: #e91e63; }
+            50%, 99% { border-right-color: transparent; }
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -132,14 +122,8 @@
             to { transform: rotate(360deg); }
         }
         @keyframes float {
-            0% {
-                transform: translateY(0) translateX(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) translateX(100px);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) translateX(0); opacity: 1; }
+            100% { transform: translateY(100vh) translateX(100px); opacity: 0; }
         }
         @keyframes slideInUp {
             from { transform: translateY(30px); opacity: 0; }
@@ -180,7 +164,6 @@
     </div>
 
     <script>
-        // Typewriter Effect
         function typeWriter(elementId, speed = 50) {
             const element = document.getElementById(elementId);
             const text = element.textContent;
@@ -197,11 +180,9 @@
             type();
         }
 
-        // Start typewriter effect
         setTimeout(() => typeWriter('typewriter1', 30), 2000);
         setTimeout(() => typeWriter('typewriter2', 30), 11000);
 
-        // Floating Hearts
         function createFloatingHeart() {
             const heart = document.createElement('div');
             heart.className = 'heart-float';
@@ -214,29 +195,18 @@
             setTimeout(() => heart.remove(), 10000);
         }
 
-        // Create hearts every 2 seconds
         setInterval(createFloatingHeart, 2000);
 
-        // Create initial hearts
         for (let i = 0; i < 3; i++) {
             setTimeout(() => createFloatingHeart(), i * 500);
         }
 
-        // Autoplay audio
         window.addEventListener('load', function() {
             const audio = document.querySelector('audio');
             if (audio) {
                 audio.play().catch(err => console.log('Autoplay dimulai'));
             }
         });
-
-        // Unmute audio setelah user interaction jika perlu
-        document.addEventListener('click', function() {
-            const audio = document.querySelector('audio');
-            if (audio) {
-                audio.play().catch(err => console.log('Audio sedang diputar'));
-            }
-        }, { once: true });
     </script>
 </body>
 </html>
