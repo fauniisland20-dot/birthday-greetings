@@ -57,20 +57,6 @@
             object-fit: cover;
             animation: rotate 20s linear infinite;
         }
-        .video-container {
-            margin: 20px 0;
-            display: flex;
-            justify-content: center;
-            animation: slideInUp 1s ease-out;
-        }
-        .video-container iframe {
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
-        }
-        .video-container iframe:hover {
-            transform: scale(1.05);
-        }
         .audio-container {
             margin: 20px 0;
             display: flex;
@@ -125,10 +111,6 @@
             0% { transform: translateY(0) translateX(0); opacity: 1; }
             100% { transform: translateY(100vh) translateX(100px); opacity: 0; }
         }
-        @keyframes slideInUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
         @keyframes glow {
             0%, 100% { box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3); }
             50% { box-shadow: 0 5px 25px rgba(233, 30, 99, 0.6); }
@@ -150,10 +132,6 @@
         <p class="typewriter" id="typewriter1">Selamat ulang tahun, cowokku yang paling ganteng dan paling istimewa di dunia! Setiap hari bersamamu adalah petualangan yang tak terlupakan, penuh tawa, cinta, dan kebahagiaan. Kamu adalah cahaya di hidupku, yang membuat segalanya terasa lebih indah. Semoga tahun ini penuh dengan kesuksesan, kesehatan, dan impian yang tercapai. Aku mencintaimu lebih dari kata-kata bisa ungkapkan. Terima kasih sudah menjadi bagian dari hidupku. <span class="heart">❤️</span></p>
         
         <p class="typewriter" id="typewriter2">Yuk, rayakan hari spesialmu dengan penuh keceriaan! Aku selalu di sini untukmu. 😘</p>
-        
-        <div class="video-container">
-            <iframe width="300" height="200" src="https://www.youtube.com/embed/mAJa4SF_VVI?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
         
         <div class="audio-container">
             <audio controls autoplay>
