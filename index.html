@@ -41,10 +41,11 @@
         }
         .image {
             width: 200px;
-            height: auto;
+            height: 200px;
             border-radius: 50%;
             margin: 20px 0;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            object-fit: cover;
         }
         .video-container {
             margin: 20px 0;
@@ -83,7 +84,7 @@
 <body>
     <div class="container">
         <h1>Happy Birthday, Sayang! 🎉</h1>
-        <img src="https://drive.google.com/uc?export=view&id=1t2FEROvDx85Fsso8qj4D0vBT3OEGJTg_" alt="Foto Romantis Kita" class="image">
+        <img src="https://drive.google.com/uc?export=view&id=1t2FEROvDx85Fsso8qj4D0vBT3OEGJTg_" alt="Foto Romantis Kita" class="image" loading="lazy">
         <p>
             Selamat ulang tahun, cowokku yang paling ganteng dan paling istimewa di dunia! 
             Setiap hari bersamamu adalah petualangan yang tak terlupakan, penuh tawa, cinta, dan kebahagiaan. 
@@ -97,14 +98,23 @@
             Yuk, rayakan hari spesialmu dengan penuh keceriaan! Aku selalu di sini untukmu. 😘
         </p>
         <div class="video-container">
-            <iframe width="300" height="200" src="https://www.youtube.com/embed/mAJa4SF_VVI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe width="300" height="200" src="https://www.youtube.com/embed/mAJa4SF_VVI?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
         <div class="audio-container">
-            <audio controls autoplay loop>
+            <audio controls autoplay muted>
                 <source src="https://drive.google.com/uc?export=download&id=1vQTCok8ud73jgcmF8-n_PD7NCkOHqCp4" type="audio/mpeg">
-                Browser kamu tidak mendukung elemen audio.
             </audio>
         </div>
+        <script>
+            // Unmute audio setelah user interaction
+            document.addEventListener('click', function() {
+                const audio = document.querySelector('audio');
+                if (audio) {
+                    audio.muted = false;
+                    audio.play().catch(err => console.log('Autoplay diizinkan browser'));
+                }
+            }, { once: true });
+        </script>
     </div>
 </body>
 </html>
