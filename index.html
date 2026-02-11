@@ -190,7 +190,7 @@
         <div class="audio-container">
             <audio controls autoplay muted>
                 <source src="https://drive.google.com/uc?export=download&id=1vQTCok8ud73jgcmF8-n_PD7NCkOHqCp4" type="audio/mpeg">
-        
+                Browser kamu tidak mendukung elemen audio.
             </audio>
         </div>
     </div>
@@ -243,7 +243,7 @@
             const audio = document.querySelector('audio');
             if (audio) {
                 audio.muted = false;
-                audio.play().catch(err => console.log('Autoplay diizinkan browser'));
+                audio.play().catch(err => console.log('Autoplay tidak diizinkan browser'));
             }
         }, { once: true });
     </script>
