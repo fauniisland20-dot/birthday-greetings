@@ -97,16 +97,6 @@
             animation: float 8s ease-in infinite;
             opacity: 0.6;
         }
-        /* Confetti */
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background: #ff4081;
-            animation: confetti-fall 6s linear infinite;
-            pointer-events: none;
-            z-index: -1;
-        }
         /* Keyframes */
         @keyframes typing {
             from {
@@ -151,12 +141,6 @@
                 opacity: 0;
             }
         }
-        @keyframes confetti-fall {
-            to {
-                transform: translateY(100vh) rotateZ(360deg);
-                opacity: 0;
-            }
-        }
         @keyframes slideInUp {
             from { transform: translateY(30px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
@@ -177,7 +161,7 @@
     
     <div class="container">
         <h1>Happy Birthday, Sayang! 🎉</h1>
-        <img src="https://drive.google.com/uc?export=view&id=1t2FEROvDx85Fsso8qj4D0vBT3OEGJTg_" alt="Foto Romantis Kita" class="image" loading="lazy">
+        <img src="./fauni.jpg" alt="Foto Romantis Kita" class="image" loading="lazy">
         
         <p class="typewriter" id="typewriter1">Selamat ulang tahun, cowokku yang paling ganteng dan paling istimewa di dunia! Setiap hari bersamamu adalah petualangan yang tak terlupakan, penuh tawa, cinta, dan kebahagiaan. Kamu adalah cahaya di hidupku, yang membuat segalanya terasa lebih indah. Semoga tahun ini penuh dengan kesuksesan, kesehatan, dan impian yang tercapai. Aku mencintaimu lebih dari kata-kata bisa ungkapkan. Terima kasih sudah menjadi bagian dari hidupku. <span class="heart">❤️</span></p>
         
@@ -188,8 +172,8 @@
         </div>
         
         <div class="audio-container">
-            <audio controls autoplay muted>
-                <source src="https://drive.google.com/uc?export=download&id=1vQTCok8ud73jgcmF8-n_PD7NCkOHqCp4" type="audio/mpeg">
+            <audio controls autoplay>
+                <source src="./Jamrud_-_Selamat_Ulang_Tahun_-_lagubagus.com_(mp3.pm).mp3" type="audio/mpeg">
                 Browser kamu tidak mendukung elemen audio.
             </audio>
         </div>
@@ -238,12 +222,19 @@
             setTimeout(() => createFloatingHeart(), i * 500);
         }
 
-        // Unmute audio setelah user interaction
+        // Autoplay audio
+        window.addEventListener('load', function() {
+            const audio = document.querySelector('audio');
+            if (audio) {
+                audio.play().catch(err => console.log('Autoplay dimulai'));
+            }
+        });
+
+        // Unmute audio setelah user interaction jika perlu
         document.addEventListener('click', function() {
             const audio = document.querySelector('audio');
             if (audio) {
-                audio.muted = false;
-                audio.play().catch(err => console.log('Autoplay tidak diizinkan browser'));
+                audio.play().catch(err => console.log('Audio sedang diputar'));
             }
         }, { once: true });
     </script>
